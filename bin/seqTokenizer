@@ -93,10 +93,8 @@ def main(argv):
 
     if outputfile != '':
         outfile = open(outputfile,'w')
-        print opts
         for l in options:
             outfile.write("%s\n" % l)
-        print tokens
         for l in tokens:
             outfile.write("%s\n" % l)
         outfile.close()
