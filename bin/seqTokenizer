@@ -1,0 +1,111 @@
+#!/usr/bin/python
+import sys, getopt
+import os.path
+
+# A Python program to split a string into varios using a window size and step values
+# Program name - seqTokenizer
+# Written by - Catalin Stanciu (catacsdev@gmail.com)
+#
+# Example:
+#   Input:  inputfile content: 1234567890 w: 4 s: 2
+#   Output: 1234
+#           3456
+#           5678
+#           7890
+
+
+DEFAULT_WINDOW = 60
+DEFAULT_STEP = 10
+
+def usage():
+    print 'seqTokenizer -i <inputfile> [-o <outputfile>] [-w <window>] [-s <step>]'
+    sys.exit(2)
+
+
+def tokenize(sequence, window, step):
+    print "Window %d Step %d" % (window,step)
+    tokens = []
+    i = 0;
+    print "Len %s" % len(sequence)
+    if len(sequence) <= window:
+        tokens.append(sequence)
+        return tokens
+    
+    while i + window < len(sequence) + step:
+        token = sequence[i:i+window]
+        tokens.append(token)
+        i = i+step
+    return tokens
+
+
+def main(argv):
+    content = ''
+    inputfile = ''
+    outputfile = ''
+    window = 0
+    step = 0
+    options = []
+    try:
+        opts, args = getopt.getopt(argv,"hi:w:s:o:",["help","inputfile=","outputfile=","window=","step="])
+    except getopt.GetoptError:
+        usage()
+    for opt, arg in opts:
+        print "reading opt %s %s" % (opt,arg)
+        if opt == '-h':
+            usage()
+        elif opt in ("-i", "--inputfile"):
+            inputfile = arg
+        elif opt in ("-o", "--outputfile"):
+            outputfile = arg
+        elif opt in ("-w", "--window"):
+            if arg.isdigit():
+                window = int(arg)
+            else:
+                print "Window input is not a number."
+                usage()
+        elif opt in ("-s", "--step"):
+            if arg.isdigit():
+                step = int(arg)
+            else:
+                print "Step input is not a number."
+                usage()
+            step = int(arg)
+    if (step == 0):
+        step = DEFAULT_STEP
+    if (window == 0):
+        window = DEFAULT_WINDOW
+    if (step > window ):
+        print "Invalid step value. Step value must be lower or equal than window."
+        usage()
+    print inputfile
+    if os.path.isfile(inputfile):
+        with open(inputfile) as f:
+            content = f.read().splitlines()
+            content = "".join(content)
+    else:
+        print "Invalid input file '%s'." % inputfile
+        usage()
+    options.append("# Input file is " +  inputfile)
+    options.append("# Output file is " + outputfile)
+    options.append("# Window is " + str(window))
+    options.append("# Step is " + str(step))
+    tokens = tokenize(content, window, step)
+
+    if outputfile != '':
+        outfile = open(outputfile,'w')
+        print opts
+        for l in options:
+            outfile.write("%s\n" % l)
+        print tokens
+        for l in tokens:
+            outfile.write("%s\n" % l)
+        outfile.close()
+    else:
+        for l in opts:
+            print l
+        for l in tokens:
+            print l
+
+
+if __name__ == "__main__":
+    main(sys.argv[1:])
