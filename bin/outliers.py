@@ -16,6 +16,12 @@ def try_parse_float(string, fail=None):
 def usage():
     print 'outlyers.py -i <inputfile> [-o <outputfile>]'
 
+def average(l):
+    length = len(l)
+    if length > 0:
+        return sum(l)/len(l)
+    return 0
+
 # Average with a percentage of outliers
 def average_percentage(l, out, percentage, percentage_outlier):
     ordered = sorted(l, reverse=True)
@@ -26,12 +32,6 @@ def average_percentage(l, out, percentage, percentage_outlier):
     return average(wout[:percentage_length])
 
 # Average with outliers
-def average(l):
-    length = len(l)
-    if length > 0:
-        return sum(l)/len(l)
-    return 0
-
 def average_out(l, out, percentage):
     ordered = sorted(l, reverse=True)
     length = int(math.ceil(len(l) * percentage / 100.0))
