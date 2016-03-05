@@ -170,6 +170,14 @@ def main(argv):
         sys.exit(2)
 
     header, outputTable, param, param_list = processData(header, table)
+    for i in range(len(outputTable)):
+        for j in range(len(outputTable[i])):
+            value = outputTable[i][j]
+            if type(value) == float:
+                new_value = "%.5f" % value
+                new_value = new_value.replace(".", ",")
+                outputTable[i][j] = new_value
+
     data_to_write = zip(*outputTable)
     header = (header + param.keys())
     data_to_write[0] = (data_to_write[0] + tuple(param.values()))
