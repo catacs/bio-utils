@@ -16,6 +16,7 @@ def try_parse_float(string, fail=None):
 def usage():
     print 'outlyers.py -i <inputfile> [-o <outputfile>]'
 
+# Average with a percentage of outliers
 def average_percentage(l, out, percentage, percentage_outlier):
     ordered = sorted(l, reverse=True)
     outliers = [x for x in ordered if x > out]
@@ -24,6 +25,7 @@ def average_percentage(l, out, percentage, percentage_outlier):
     percentage_length = int(math.ceil(len(l) * percentage / 100.0))
     return average(wout[:percentage_length])
 
+# Average with outliers
 def average(l):
     length = len(l)
     if length > 0:
@@ -35,6 +37,7 @@ def average_out(l, out, percentage):
     length = int(math.ceil(len(l) * percentage / 100.0))
     return average(ordered[:length])
 
+# Average without outliers
 def average_wout(l, out, percentage):
     ordered = sorted(l, reverse=True)
     outliers = [x for x in ordered if x > out]
@@ -43,12 +46,15 @@ def average_wout(l, out, percentage):
     length = int(math.ceil(len(l) * percentage / 100.0))
     return average(wout[:length])
 
+# Outlier
 def out(itr):
     return itr + (itr * 1.5)
 
+# Interquartile range
 def itr(q_1, q_3):
     return q_3 - q_1
 
+# Third quartile of positive data
 def q1(l):
     positive_nums = [x for x in l if x >= 0]
     sorted_nums = sorted(positive_nums)
@@ -56,7 +62,7 @@ def q1(l):
     lq = sorted_nums[low_mid]
     return lq
 
-# First quartile of positive data
+# Third quartile of positive data
 def q3(l):
     uq = 0;
     l = [x for x in l if x >= 0]
