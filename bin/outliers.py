@@ -148,7 +148,7 @@ def main(argv):
     inputfile = ''
     outputfile = ''
     try:
-        opts, args = getopt.getopt(argv,"hi:w:s:o:",["help","inputfile=","outputfile=","window=","step="])
+        opts, args = getopt.getopt(argv,"hi:o:",["help","inputfile=","outputfile="])
     except getopt.GetoptError:
         usage()
     for opt, arg in opts:
