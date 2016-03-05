@@ -6,6 +6,7 @@ import numpy
 import csv
 
 HEADERS = ['seqNum', 'seqRNA', 'areaDiff', 'normDiff']
+EXCLUDE_FLOAT= ['seqNum']
 
 def try_parse_float(string, fail=None):
     try:
@@ -102,7 +103,11 @@ def readInput(filename):
             row = line.split()
             i = 0
             for col in rows_to_process:
-                data[i].append(try_parse_float(row[col], row[col]))
+                value = row[col]
+                if not header[i] in EXCLUDE_FLOAT:
+                    value = try_parse_float(row[col], row[col])
+                data[i].append(value)
+
                 i += 1
     return header, data
 
