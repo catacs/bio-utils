@@ -111,7 +111,7 @@ def writeOutput(filename, header, table):
     if filename != '':
         outputfile =  open(filename, 'w')
 
-    csv_writer = csv.writer(outputfile)
+    csv_writer = csv.writer(outputfile, delimiter=";")
     csv_writer.writerow(header)
     for row in table:
         csv_writer.writerow(row)

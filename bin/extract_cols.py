@@ -19,7 +19,7 @@ def writeOutput(filename, header, data):
     if filename != '':
         outputfile =  open(filename, 'w')
 
-    csv_writer = csv.writer(outputfile)
+    csv_writer = csv.writer(outputfile, delimiter=";")
     if header != None:
         csv_writer.writerow(header)
     for row in data:
@@ -55,7 +55,7 @@ def main(argv):
         # open the file in universal line ending mode
         with open(input_file, 'r') as infile:
           # read the file as a dictionary for each row ({header : value})
-          reader = csv.DictReader(infile)
+          reader = csv.DictReader(infile, delimiter=';')
           data = {}
           for row in reader:
             for header, value in row.items():
