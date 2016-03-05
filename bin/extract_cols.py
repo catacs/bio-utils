@@ -66,7 +66,7 @@ def main(argv):
 
         for header_name in COLUMNS:
             if header_name in data:
-                out_filename = outputfile + '_' + header_name
+                out_filename = header_name
                 if not out_filename in outputData:
                     outputData[out_filename] = []
                 for fixed_row in FIXED:
