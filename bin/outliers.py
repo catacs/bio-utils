@@ -107,7 +107,6 @@ def readInput(filename):
     return header, data
 
 def writeOutput(filename, header, table):
-    csv.writer(sys.stdout)
     outputfile = sys.stdout
     if filename != '':
         outputfile =  open(filename, 'w')
