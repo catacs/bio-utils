@@ -7,12 +7,6 @@ import csv
 
 HEADERS = ['seqNum', 'seqRNA', 'areaDiff', 'normDiff']
 
-# def parse_float(string):
-#     try:
-#         return float(string)
-#     except Exception:
-#         throw TypeError
-
 def try_parse_float(string, fail=None):
     try:
         return float(string)
