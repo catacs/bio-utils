@@ -167,6 +167,11 @@ def main(argv):
 
     header, outputTable, param, param_list = processData(header, table)
     data_to_write = zip(*outputTable)
+    header = (header + param.keys())
+    data_to_write[0] = (data_to_write[0] + tuple(param.values()))
+    header = (header + param_list.keys())
+    data_to_write[0] = (data_to_write[0] + tuple(param_list.values()))
+
     writeOutput(outputfile, header, data_to_write)
 
 if __name__ == "__main__":
