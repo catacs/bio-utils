@@ -1,0 +1,10 @@
+#!/bin/bash
+sequence_file=$1
+shape_file=$2
+outname=$(echo $shape_file | awk -F '.' '{print $1}')
+echo "SEQ: $sequence_file shape_file: $shape_file basename: $outname"
+export PATH=$PATH:$HOME/RNAstructure/exe/
+export DATAPATH=$HOME/RNAstructure/data_tables/
+ShapeKnots $sequence_file  $outname.ct -sh $shape_file
+draw   $outname.ct $outname.ps -s $shape_file
+gs -sDEVICE=pdfwrite -sOutputFile=$outname.pdf -dBATCH -dNOPAUSE $outname.ps
